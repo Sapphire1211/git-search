@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "A web application to search github projects",
-  "repository": "",
+  "repository": "https://github.com/Sapphire1211/git-search.git",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.7.5",
