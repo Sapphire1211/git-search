@@ -82,7 +82,7 @@ gitSearchApp.controller('GitSearchPageController', function GitSearchPageControl
        function(err) {
          changeUIAfterHttpCall();
          $scope.formMessageClass = 'alert-danger';
-         $scope.formMessage = err;
+         $scope.formMessage = "Error in searching the query you provided.";//todo: based on the type of error, print more verbose error message
          $('.alert').removeClass('ng-hide');
       });
   };
@@ -114,8 +114,11 @@ gitSearchApp.controller('GitSearchPageController', function GitSearchPageControl
       },
       function(data) {
         var lastThreeCommitters = [];
-        for(var i = 0; i < Math.min(3, data.length); i++){
-            lastThreeCommitters.push(data[i].committer.login);
+        for(var i = 0; i < data.length; i++){
+            if(data[i].committer !== undefined){
+               lastThreeCommitters.push(data[i].committer.login);
+            }
+            if(lastThreeCommitters.length == 3) break;
         }
         repoDetails.lastThreeCommits = {'content': lastThreeCommitters};
         setShowAlertFlag();
