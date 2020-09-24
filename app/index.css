@@ -1,0 +1,11 @@
+.alert{
+    margin: 20pt;
+    word-wrap: break-word;
+}
+
+.table{
+    margin-top: 20pt;
+}
+.buttonGroup{
+    text-align: right;
+}

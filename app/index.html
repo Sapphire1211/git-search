@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" ng-app="gitSearchApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/spinner/spinner.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-resource.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="commonLib.app.js"></script>
+    <script type="text/javascript" src="apiResource.js"></script>
+    <title>Github Search</title>
+  </head>
+  <body ng-controller="GitSearchPageController" ng-cloak>
+    <div id="transparentSpinner">
+        <img src="/spinner/spinner.gif" alt="Loading" />
+    </div>
+    <div class="container">
+        <div id="header" class="header-wrapper"  ng-include="'/headerview/header.html'"></div>
+        <div class="row main-section">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <form class="input-group">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit" id= "searchButton" ng-click="searchNew(queryString)">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            <input class="form-control" id= "searchInput" type="text" placeholder="Search" aria-label="Search" ng-model="queryString" required>
+                        </form>
+                    </div>
+                    <div class="col-sm-3 buttonGroup">
+                        <button class="btn btn-outline-secondary" id="prevButton" ng-show="viewPageIndex > 1 && !formMessageClass" ng-click="getSearchPage(-1)">Prev</button>
+                        <button class="btn btn-outline-dark" id="nextButton" ng-show="viewPageIndex > 0 && !formMessageClass" ng-disabled="viewItems.length < viewPageSize" ng-click="getSearchPage(1)">Next</button>
+                    </div>
+
+                    <div class="col-sm-9 alert form-messages {{formMessageClass}} ng-hide" id="alertBanner">
+                        <a class="close" aria-label="close" onclick="$('.alert').addClass('ng-hide')">&times;</a> {{ formMessage }}
+                    </div>
+                    <table class="table table-borderless table-hover table-condensed" id = "resultTable" ng-show = "viewItems !== undefined && viewItems.length > 0">
+                        <thead>
+                            <tr>
+                                <td><h5>Name</h5></td>
+                                <td><h5>Owner</h5></td>
+                                <td><h5>Stars</h5></td>
+                                <td><h5>Link</h5></td>
+                                <td><h5>Details</h5></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in viewItems">
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.owner.login }}</td>
+                                <td>{{ item.stargazers_count}}</td>
+                                <td><a href="{{ item.html_url }}" target="_blank">{{ item.html_url }}</a></td>
+                                <td><button class="btn btn-outline-dark detailsButton" ng-click="getDetails(item)" >Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
