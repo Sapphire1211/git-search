@@ -11,7 +11,7 @@ In your browser, visit the app at [`localhost:8000/index.html`]
 
 
 ## Test
-A set of end-to-end tests have been provided.
+A set of end-to-end tests have been provided. You will need a chrome to test it.
 If the app is not running, kick off it.
 ```
 npm start
